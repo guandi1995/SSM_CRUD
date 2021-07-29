@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.StudentMapper">
+    <select id="fetchStudents" resultType="com.pojo.Student">
+        select * from studentinfo
+    </select>
+
+    <insert id="insertStudent" parameterType="com.pojo.Student">
+        insert into studentinfo (stuid, stuname, age, gender, major_id) values
+            (#{stuid}, #{stuname}, #{age}, #{gender}, #{major_id})
+    </insert>
+
+<!--    <update id="updateStudent" parameterType="com.pojo.Student">-->
+<!--        update studentinfo-->
+<!--        <set>-->
+<!--            <if test="#"></if>-->
+<!--        </set>-->
+<!--    </update>-->
+    <delete id="deleteStudentByID">
+        delete from studentinfo where stuid = #{id}
+    </delete>
+</mapper>

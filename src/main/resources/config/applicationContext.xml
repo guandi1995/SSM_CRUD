@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+<!--                配置Spring IOC的注解                     -->
+    <!--    开启annotation注解扫描-->
+    <!--    扫描com包下的所有Java文件-->
+    <context:annotation-config></context:annotation-config>
+    <context:component-scan base-package="com"/>
+
+<!--                注册MyBatis相关的Bean                    -->
+<!--    注册datasource数据源-->
+    <context:property-placeholder location="classpath:config/database.properties"/>
+    <bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${database.user}"></property>
+        <property name="password" value="${database.password}"></property>
+        <property name="url" value="${database.url}"></property>
+        <property name="driverClassName" value="${database.className}"></property>
+    </bean>
+<!--    注册sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="ds"/>
+        <property name="configLocation" value="classpath:config/mybatis.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+<!--    注册生成代理类-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.mapper"/>
+    </bean>
+</beans>

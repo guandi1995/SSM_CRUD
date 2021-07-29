@@ -4,4 +4,35 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <!--          配置Spring容器加载器           -->
+
+  <!--  Spring01中的Controller层，每次测试代码时，都需要以下代码
+        context-param标签和listener标签等同于以下代码-->
+  <!--  ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+  <!    StudentService studentService = (StudentService) context.getBean("stuServiceAnno");
+  <!    studentService.fetchStudents();-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:config/applicationContext.xml</param-value>
+  </context-param>
+  <!--  项目启动时，会执行web.xml文件，所以在这声明监听器，监听所有context，加载WebApplicationContext
+        加载的容器就是context-param中声明的config/ApplicationContext.xml文件
+        这样，就不需要我们自己像Spring01的controlle中那样创建new容器了-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!--          配置SpringMVC          -->
+  <servlet>
+    <servlet-name>SSM_CRUD</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:config/springMVC.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SSM_CRUD</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
 </web-app>
