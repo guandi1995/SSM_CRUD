@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 同步CRUD
  * @author Di Guan on 7/28/2021 8:35 PM
  */
 @Controller
@@ -22,15 +23,8 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-
-    /**
-     * 同步CRUD
-     */
-
     /**
      * fetch students
-     * @param model
-     * @return
      */
     @RequestMapping("/fetchStudents")
     public String fetchStudents(Model model){
@@ -39,48 +33,46 @@ public class StudentController {
         return "/fetchStudents";
     }
 
+
     /**
      * insert student
-     * @param student
-     * @return
+     * 前台form表单自动映射pojo实体的属性
      */
+
     @RequestMapping("/insertStudent")
     public String insertStudent(Student student){
         System.out.println(student);
         studentService.insertStudent(student);
-        return "forward:/student/fetchStudents";
+        return "redirect:/student/fetchStudents";
     }
 
     /**
      * update student
-     * @param map
-     * @return
+     * 首先fetchStudentByID
+     * 再updateStudent
      */
-    public String updateStudent(@RequestParam Map map){
-        System.out.println(map);
-        return "forward:/student/fetchStudents";
+    @RequestMapping("/fetchStudentByID")
+    public String fetchStudentByID(Model model, Integer id){
+        Student student = studentService.fetchStudentByID(id);
+        model.addAttribute("student", student);
+        return "/updateStudent";
+    }
+    @RequestMapping("/updateStudent")
+    public String updateStudent(Student student){
+        System.out.println(student);
+        studentService.updateStudent(student);
+        return "redirect:/student/fetchStudents";
     }
 
     /**
      * delete student by id
      * @return
      */
+    @RequestMapping("/deleteStudentByID")
     public String deleteStudentById(Integer id){
         System.out.println(id);
-//        studentService.deleteStudentByID(id);
-        return "forward:/student/fetchStudents";
+        studentService.deleteStudentByID(id);
+        return "redirect:/student/fetchStudents";
     }
-
-
-    /**
-     * 异步CURD
-     */
-
-    @RequestMapping("/asyn/fetchStudents")
-    @ResponseBody
-    public List<Student> fetchStudentsAsyn(){
-        return studentService.fetchStudents();
-    }
-
 
 }

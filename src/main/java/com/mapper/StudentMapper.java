@@ -9,6 +9,7 @@ import java.util.List;
 public interface StudentMapper {
     List<Student> fetchStudents();
     int insertStudent(Student student);
-    int updateStudent(Student student);
     int deleteStudentByID(Integer id);
+    List<Student> fetchStudentByID(Integer id);
+    int updateStudent(Student student);
 }

@@ -13,13 +13,16 @@
             (#{stuid}, #{stuname}, #{age}, #{gender}, #{major_id})
     </insert>
 
-<!--    <update id="updateStudent" parameterType="com.pojo.Student">-->
-<!--        update studentinfo-->
-<!--        <set>-->
-<!--            <if test="#"></if>-->
-<!--        </set>-->
-<!--    </update>-->
     <delete id="deleteStudentByID">
         delete from studentinfo where stuid = #{id}
     </delete>
+
+    <select id="fetchStudentByID" resultType="com.pojo.Student">
+        select * from studentinfo where stuid = #{id}
+    </select>
+
+    <update id="updateStudent" parameterType="com.pojo.Student">
+        update studentinfo set stuname=#{stuname}, age=#{age}, gender=#{gender}, major_id=#{major_id}
+        where stuid = #{stuid}
+    </update>
 </mapper>

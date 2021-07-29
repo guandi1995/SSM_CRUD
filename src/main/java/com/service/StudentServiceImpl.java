@@ -28,6 +28,13 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public Student fetchStudentByID(Integer id) {
+        List<Student> studentList = studentMapper.fetchStudentByID(id);
+        Student student = studentList.get(0);
+        return student;
+    }
+
+    @Override
     public int updateStudent(Student student) {
         return studentMapper.updateStudent(student);
     }
