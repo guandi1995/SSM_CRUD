@@ -39,28 +39,28 @@
 
     <!--                 基于xml配置aop                   -->
     <!--扫描aop包-->
-    <context:component-scan base-package="aop"/>
-    <!--增强类-->
-    <bean id="enhancer" class="aop.enhencer.TransactionEnhancer"/>
+<!--    <context:component-scan base-package="aop"/>-->
+<!--    &lt;!&ndash;增强类&ndash;&gt;-->
+<!--    <bean id="enhancer" class="aop.enhencer.TransactionEnhancer"/>-->
 
-    <aop:config>
-        <!--配置切面aspect-->
-        <aop:aspect ref="enhancer">
-            <!--配置pointcut切入点-->
-            <aop:pointcut id="pointcut" expression="execution(* aop.service.*.insert*(..) )"/>
-            <!--配置通知advice-->
-            <!--前置通知-->
-            <aop:before method="beforeMethod" pointcut-ref="pointcut"/>
-            <!--最终通知-->
-            <aop:after method="afterMethod" pointcut-ref="pointcut"/>
-            <!--后置通知-->
-            <aop:after-returning method="afterNoExceptionMethod" pointcut-ref="pointcut"/>
-            <!--异常通知-->
-            <aop:after-throwing method="afterExceptionMethod" throwing="e" pointcut-ref="pointcut"/>
-             <!--环绕通知-->
-            <aop:around method="roundMethod" pointcut-ref="pointcut"/>
-        </aop:aspect>
-    </aop:config>
+<!--    <aop:config>-->
+<!--        &lt;!&ndash;配置切面aspect&ndash;&gt;-->
+<!--        <aop:aspect ref="enhancer">-->
+<!--            &lt;!&ndash;配置pointcut切入点&ndash;&gt;-->
+<!--            <aop:pointcut id="pointcut" expression="execution(* aop.service.*.insert*(..) )"/>-->
+<!--            &lt;!&ndash;配置通知advice&ndash;&gt;-->
+<!--            &lt;!&ndash;前置通知&ndash;&gt;-->
+<!--            <aop:before method="beforeMethod" pointcut-ref="pointcut"/>-->
+<!--            &lt;!&ndash;最终通知&ndash;&gt;-->
+<!--            <aop:after method="afterMethod" pointcut-ref="pointcut"/>-->
+<!--            &lt;!&ndash;后置通知&ndash;&gt;-->
+<!--            <aop:after-returning method="afterNoExceptionMethod" pointcut-ref="pointcut"/>-->
+<!--            &lt;!&ndash;异常通知&ndash;&gt;-->
+<!--            <aop:after-throwing method="afterExceptionMethod" throwing="e" pointcut-ref="pointcut"/>-->
+<!--             &lt;!&ndash;环绕通知&ndash;&gt;-->
+<!--            <aop:around method="roundMethod" pointcut-ref="pointcut"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
 
     <!--                注解配置aop                 -->
     <!--扫描aop包-->
