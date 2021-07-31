@@ -2,11 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/aop
+    https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 <!--                配置Spring IOC的注解                     -->
     <!--    开启annotation注解扫描-->
@@ -14,7 +16,8 @@
     <context:annotation-config></context:annotation-config>
     <context:component-scan base-package="com"/>
 
-<!--                注册MyBatis相关的Bean                    -->
+
+    <!--                注册MyBatis相关的Bean                    -->
 <!--    注册datasource数据源-->
     <context:property-placeholder location="classpath:config/database.properties"/>
     <bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
@@ -41,7 +44,7 @@
     <!--扫描aop包-->
     <context:component-scan base-package="aop"/>
     <!--增强类-->
-    <bean id="enhancer" class="aop.enhencer.TransactionEnhancer"/>
+    <bean id="enhancer" class="aop.enhencer.XmlEnhancer"/>
 
     <aop:config>
         <!--配置切面aspect-->
@@ -74,5 +77,15 @@
 <!--    如果运行Java配置aop，需要保留扫描aop包的spring IOC配置才可以正常运行-->
 <!--                      按理需要注释该文件所有内容，并创建新的config类配置spring IOC；-->
 
+
+    <!--                事务管理            -->
+    <!--扫描transaction包-->
+    <context:component-scan base-package="transaction"/>
+    <!--将datasource注册到事务管理器中-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="ds"/>
+    </bean>
+    <!--开启事务注解-->
+    <tx:annotation-driven/>
 
 </beans>

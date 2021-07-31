@@ -9,7 +9,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
  * @author Di Guan on 7/30/2021 11:32 AM
  */
 
-public class TransactionEnhancer {
+public class XmlEnhancer {
     //前置通知before advice：target之前，执行该方法
     public void beforeMethod(JoinPoint joinPoint){
         System.out.println("execute before the pointcut");

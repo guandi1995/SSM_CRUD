@@ -2,6 +2,7 @@ package com.controller;
 
 import com.pojo.Student;
 import com.service.StudentService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
